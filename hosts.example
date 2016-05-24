@@ -1,0 +1,19 @@
+athos ansible_ssh_port=16222 ansible_host=64.137.250.14 
+aramis ansible_ssh_port=16222 ansible_host=64.137.250.13
+porthos ansible_ssh_port=16222 ansible_host=64.137.250.12
+dartagnan ansible_ssh_port=16222 ansible_host=64.137.250.11
+
+[CA]
+porthos
+
+[swarm]
+porthos
+
+[node1]
+aramis
+
+[node0]
+athos
+
+[client]
+dartagnan

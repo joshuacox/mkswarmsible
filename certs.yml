@@ -1,0 +1,13 @@
+---
+- name:  make keys and certs
+  vars:
+     NAME_contents: "{{ lookup('file', 'NAME') }}"
+  hosts: CA
+  gather_facts: False
+  tasks:
+  - script: key.sh  creates=/home/root/.ssh/id_ecdsa
+  - script: makecerts.sh  creates=/root/certsmade.txt
+  - fetch: src=/root/.ssh/id_ecdsa.pub dest=/tmp/authorized_keys
+  - fetch: src=/tmp/swarm.tgz dest=/tmp/swarm.tgz
+  - fetch: src=/tmp/node0.tgz dest=/tmp/node0.tgz
+  - fetch: src=/tmp/node1.tgz dest=/tmp/node1.tgz
