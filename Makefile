@@ -32,3 +32,6 @@ TAG:
 	@while [ -z "$$TAG" ]; do \
 		read -r -p "Enter the name you wish to associate with this container [TAG]: " TAG; echo "$$TAG">>TAG; cat TAG; \
 	done ;
+
+certs:
+	ANSIBLE_SCP_IF_SSH=y   ansible-playbook -vvvv -i hosts certs.yml
