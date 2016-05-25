@@ -1,0 +1,9 @@
+---
+- name:  make swarm manager
+  vars:
+     NAME_contents: "{{ lookup('file', 'NAME') }}"
+  hosts: swarm
+  gather_facts: False
+  tasks:
+  - copy: src=tmp/porthos/tmp/swarm.tgz  dest=/tmp/swarm.tgz owner=root group=root mode=0644
+  - script: swarm.sh  creates=/root/.swarmed.txt

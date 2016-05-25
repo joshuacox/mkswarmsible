@@ -1,0 +1,9 @@
+---
+- name:  make node1 manager
+  vars:
+     NAME_contents: "{{ lookup('file', 'NAME') }}"
+  hosts: node1
+  gather_facts: False
+  tasks:
+  - copy: src=tmp/porthos/tmp/node1.tgz  dest=/tmp/node1.tgz owner=root group=root mode=0644
+  - script: node1.sh  creates=/root/.noded.txt

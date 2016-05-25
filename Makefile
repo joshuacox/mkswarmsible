@@ -34,4 +34,7 @@ TAG:
 	done ;
 
 certs:
-	ANSIBLE_SCP_IF_SSH=y   ansible-playbook -vvvv -i hosts certs.yml
+	ANSIBLE_SCP_IF_SSH=y ansible-playbook -i hosts certs.yml
+
+swarm:
+	ANSIBLE_SCP_IF_SSH=y ansible-playbook -i hosts swarm.yml
