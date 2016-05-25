@@ -10,6 +10,7 @@ mv cert.pem /home/muskateer/.certs/
 mv key.pem /home/muskateer/.certs/
 chown -R muskateer. /home/muskateer/.certs
 chmod -R 660 muskateer. /home/muskateer/.certs
+service docker restart
 
 cd /tmp
 rm -Rf $TMP

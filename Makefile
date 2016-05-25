@@ -41,6 +41,9 @@ certs:
 swarm:
 	ANSIBLE_SCP_IF_SSH=y ansible-playbook -i hosts swarm.yml
 
+swarmmanager:
+	ANSIBLE_SCP_IF_SSH=y ansible-playbook -i hosts swarmmanager.yml
+
 node0:
 	ANSIBLE_SCP_IF_SSH=y ansible-playbook -i hosts node0.yml
 
