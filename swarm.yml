@@ -7,4 +7,5 @@
   tasks:
   - user: name=muskateer shell=/bin/bash groups=docker append=yes
   - copy: src=tmp/porthos/tmp/swarm.tgz  dest=/tmp/swarm.tgz owner=root group=root mode=0644
+  - copy: src=default/docker  dest=/etc/default/docker owner=root group=root mode=0644
   - script: swarm.sh  creates=/root/.swarmed.txt
