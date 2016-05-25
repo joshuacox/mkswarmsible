@@ -5,5 +5,6 @@
   hosts: node0
   gather_facts: False
   tasks:
+  - user: name=muskateer shell=/bin/bash groups=docker append=yes
   - copy: src=tmp/porthos/tmp/node0.tgz  dest=/tmp/node0.tgz owner=root group=root mode=0644
   - script: node0.sh  creates=/root/.noded.txt
