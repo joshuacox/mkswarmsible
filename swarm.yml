@@ -10,3 +10,7 @@
   - copy: src=default/docker  dest=/etc/default/docker owner=root group=root mode=0644
   - script: swarm.sh  creates=/root/.swarmed.txt
   - fetch: src=/root/TOKEN dest=tmp
+  - name: "Build hosts file"
+    lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item].ansible_host }} {{item}}" state=present
+    when: hostvars[item].ansible_host is defined
+    with_items: groups['all']

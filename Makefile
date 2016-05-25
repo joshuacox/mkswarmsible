@@ -1,6 +1,6 @@
 all: help
 
-auto: swarm node0 node1
+auto: swarm node0 node1 swarmmanager
 
 help:
 	@echo ""

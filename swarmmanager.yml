@@ -1,0 +1,48 @@
+---
+- name:  make swarm manager
+  vars:
+     NAME_contents: "{{ lookup('file', 'NAME') }}"
+     TOKEN_contents: "{{ lookup('file', 'tmp/porthos/root/TOKEN') }}"
+  hosts: swarm
+  gather_facts: False
+  tasks:
+  - name: athos
+    docker:
+      name: swarmjoin
+      docker_url: tcp://porthos:2376
+      use_tls: encrypt
+      tls_ca_cert: /home/muskateer/.certs/ca.pem
+      tls_client_cert: /home/muskateer/.certs/cert.pem
+      tls_client_key: /home/muskateer/.certs/key.pem
+      image: swarm
+      command: join --addr=athos:2376 token://{{ TOKEN_contents }}
+      state: reloaded
+      restart_policy: always
+  - name: aramis
+    docker:
+      name: swarmjoin
+      docker_url: tcp://porthos:2376
+      use_tls: encrypt
+      tls_ca_cert: /home/muskateer/.certs/ca.pem
+      tls_client_cert: /home/muskateer/.certs/cert.pem
+      tls_client_key: /home/muskateer/.certs/key.pem
+      image: swarm
+      command: join --addr=aramis:2376 token://{{ TOKEN_contents }}
+      state: reloaded
+      restart_policy: always
+  - name: porthos manager
+    docker:
+      name: swarmmanager
+      docker_url: tcp://porthos:2376
+      use_tls: encrypt
+      tls_ca_cert: /home/muskateer/.certs/ca.pem
+      tls_client_cert: /home/muskateer/.certs/cert.pem
+      tls_client_key: /home/muskateer/.certs/key.pem
+      image: swarm
+      command: manage --tlsverify --tlscacert=/certs/ca.pem --tlscert=/certs/cert.pem --tlskey=/certs/key.pem --host=0.0.0.0:3376 token://{{ TOKEN_contents }}
+      state: reloaded
+      restart_policy: always
+      ports:
+        - "3376:3376"
+      volumes:
+        - '/home/muskateer/.certs:/certs:ro'

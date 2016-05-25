@@ -2,7 +2,7 @@
 - name:  make node1 manager
   vars:
      NAME_contents: "{{ lookup('file', 'NAME') }}"
-     TOKEN_contents: "{{ lookup('file', 'TOKEN') }}"
+     TOKEN_contents: "{{ lookup('file', 'tmp/porthos/root/TOKEN') }}"
   hosts: node1
   gather_facts: False
   tasks:
@@ -11,9 +11,7 @@
   - copy: src=tmp/porthos/root/TOKEN dest=/root/TOKEN owner=root group=root mode=0644
   - copy: src=default/docker  dest=/etc/default/docker owner=root group=root mode=0644
   - script: node1.sh  creates=/root/.noded.txt
-  - name: node1 dockers
-    docker:
-      image: swarm
-      command: join --addr=node1:2376 token://{{ TOKEN_contents }}
-      state: reloaded
-      restart_policy: always
+  - name: "Build hosts file"
+    lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item].ansible_host }} {{item}}" state=present
+    when: hostvars[item].ansible_host is defined
+    with_items: groups['all']
