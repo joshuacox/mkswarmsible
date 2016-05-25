@@ -1,5 +1,7 @@
 all: help
 
+auto: swarm node0 node1
+
 help:
 	@echo ""
 	@echo "-- Help Menu"

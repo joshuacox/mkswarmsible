@@ -8,6 +8,8 @@ cd swarm
 mv ca.pem /home/muskateer/.certs/
 mv cert.pem /home/muskateer/.certs/
 mv key.pem /home/muskateer/.certs/
+chown -R muskateer. /home/muskateer/.certs
+chmod -R 660 muskateer. /home/muskateer/.certs
 
 cd /tmp
 rm -Rf $TMP
